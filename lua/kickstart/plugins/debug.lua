@@ -94,7 +94,11 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        'delve', -- Go debugger
+        'javadbg',
+        'javatest',
+        'js',
+        'python',
       },
     }
 
@@ -135,6 +139,41 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    -- dap.adapters.java = {
+    --   type = 'server',
+    --   host = '127.0.0.1',
+    --   port = 5005, -- Must match Spring Boot debug port
+    -- }
+
+    -- dap.adapters.java = function(callback)
+    --   vim.lsp.buf.execute_command {
+    --     command = 'vscode.java.startDebugSession',
+    --   } -- not sure how to get the port from this command
+    --   callback {
+    --     type = 'server',
+    --     host = '127.0.0.1',
+    --     port = 5005,
+    --   }
+    -- end
+
+    dap.adapters.java = function(callback)
+      callback {
+        type = 'server',
+        host = '127.0.0.1',
+        port = 5005,
+      }
+    end
+
+    dap.configurations.java = {
+      {
+        type = 'java',
+        request = 'attach', -- Enables attaching to a running JVM
+        name = 'Attach to JVM',
+        hostName = '127.0.0.1',
+        port = 5005, -- Same debug port as Spring Boot
+      },
+    }
 
     -- Install golang specific config
     require('dap-go').setup {
