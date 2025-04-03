@@ -674,9 +674,10 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
+        gopls = {},
+        pyright = {},
+        rust_analyzer = {},
+        emmet_language_server = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -751,6 +752,20 @@ require('lazy').setup({
 
           settings = {},
         },
+        jdtls = {
+          init_options = {
+            bundles = vim.fn.glob(
+              '~/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
+              1
+            ),
+          },
+        },
+        eslint = {},
+        html = {},
+        -- htmx = {},
+        templ = {},
+        ts_ls = {},
+        zls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -769,6 +784,9 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'prettierd',
+        'black',
+        'google-java-format',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -835,6 +853,7 @@ require('lazy').setup({
         yaml = { 'prettierd', 'prettier', stop_after_first = true },
         -- markdown = { 'prettierd', 'prettier', stop_after_first = true },
         python = { 'isort', 'black' },
+        java = { 'google-java-format' },
       },
     },
   },
@@ -1006,7 +1025,28 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'templ',
+        'typescript',
+        'zig',
+        'java',
+        'css',
+        'go',
+        'jsdoc',
+        'rust',
+        'python',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
