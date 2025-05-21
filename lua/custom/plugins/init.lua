@@ -15,6 +15,9 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 vim.wo.relativenumber = true
 
+-- make status line global, instead one per window
+vim.opt.laststatus = 3
+
 return {
   'tpope/vim-fugitive',
   {
