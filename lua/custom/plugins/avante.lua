@@ -6,20 +6,23 @@ return {
     -- add any opts here
     -- for example
     provider = 'openai',
-    openai = {
-      endpoint = 'https://api.openai.com/v1',
-      model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
-      timeout = 30000, -- timeout in milliseconds
-      temperature = 0, -- adjust if needed
-      max_tokens = 8192,
-      -- max_completion_tokens = 8192,
-      -- reasoning_effort = 'high', -- only supported for reasoning models (o1, etc.)
-    },
-    vendors = {
-      openai_o3_mini = {
-        __inherited_from = 'openai',
-        model = 'o3-mini',
-        reasoning_effort = 'high', -- only supported for reasoning models (o1, etc.)
+    providers = {
+      openai = {
+        endpoint = 'https://api.openai.com/v1',
+        model = 'gpt-4.1-nano', -- your desired model (or use gpt-4o, etc.)
+        extra_request_body = {
+          timeout = 30000, -- timeout in milliseconds
+          temperature = 0, -- adjust if needed
+          max_completion_tokens = 30000,
+          reasoning_effort = 'high', -- only supported for reasoning models (o1, etc.)
+        },
+      },
+      vendors = {
+        openai_gpt4o = {
+          __inherited_from = 'openai',
+          model = 'gpt-4o',
+          -- reasoning_effort = 'high', -- only supported for reasoning models (o1, etc.)
+        },
       },
     },
   },
