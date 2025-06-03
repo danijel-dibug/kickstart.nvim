@@ -962,6 +962,14 @@ require('lazy').setup({
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
+
+      -- Setup up vim-dadbod
+      cmp.setup.filetype({ 'sql' }, {
+        sources = {
+          { name = 'vim-dadbod-completion' },
+          { name = 'buffer' },
+        },
+      }),
     },
   },
 
