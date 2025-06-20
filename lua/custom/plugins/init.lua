@@ -16,7 +16,7 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.wo.relativenumber = true
 
 -- make status line global, instead one per window
-vim.opt.laststatus = 3
+vim.o.laststatus = 3
 
 return {
   'tpope/vim-fugitive',
@@ -26,6 +26,9 @@ return {
     opts = {
       sections = {
         lualine_x = { { 'filetype', icon_only = true } },
+        lualine_c = {
+          { 'filename', path = 1 }, -- 1 = relative path
+        },
       },
       options = {
         icons_enabled = true,
