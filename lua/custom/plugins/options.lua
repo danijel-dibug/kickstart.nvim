@@ -1,4 +1,4 @@
-local opt = vim.opt
+local opt = vim.o
 
 ----- Interesting Options -----
 
@@ -17,12 +17,12 @@ opt.splitbelow = true
 opt.splitright = true
 
 opt.signcolumn = 'yes'
-opt.shada = { "'10", '<0', 's10', 'h' }
+-- opt.shada = { "'10", '<0', 's10', 'h' }
 
 opt.swapfile = false
 
 -- Don't have `o` add a comment
-opt.formatoptions:remove 'o'
+-- opt.formatoptions:remove 'o'
 
 opt.wrap = true
 opt.linebreak = true
@@ -33,6 +33,9 @@ opt.shiftwidth = 4
 opt.more = false
 
 opt.foldmethod = 'manual'
+
+opt.spell = true -- Enable spellchecking
+opt.spelllang = 'en,hr' -- Set languages
 
 return {
   require('mini.comment').setup {
