@@ -775,6 +775,7 @@ require('lazy').setup({
         templ = {},
         ts_ls = {},
         zls = {},
+        biome = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -852,14 +853,14 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        typescript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        javascriptreact = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        typescriptreact = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        css = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        html = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        json = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
-        yaml = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        html = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        yaml = { 'biome', 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
         -- markdown = { 'prettierd', 'prettier', stop_after_first = true },
         python = { 'isort', 'black' },
         java = { 'google-java-format' },
