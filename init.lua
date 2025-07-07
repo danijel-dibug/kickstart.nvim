@@ -865,6 +865,11 @@ require('lazy').setup({
         python = { 'isort', 'black' },
         java = { 'google-java-format' },
       },
+      formatters = {
+        biome = {
+          require_cwd = true, -- biome config file must exist
+        },
+      },
       -- formatters = {
       --   prettierd = {
       --     prepend_args = { '--single-quote' },
