@@ -6,5 +6,13 @@ return {
       'jmbuhr/otter.nvim',
       'nvim-treesitter/nvim-treesitter',
     },
+    ft = { 'quarto', 'markdown' },
+    opts = {
+      lspFeatures = {
+        enabled = true,
+        languages = { 'python', 'bash' },
+        diagnostic = { enabled = true },
+      },
+    },
   },
 }
