@@ -40,6 +40,13 @@ opt.foldmethod = 'manual'
 opt.spell = true -- Enable spellchecking
 opt.spelllang = 'en,hr' -- Set languages
 
+-- Stay in indent mode
+vim.keymap.set('v', '<', '<gv', { desc = 'Indent left and reselect' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent right and reselect' })
+
+-- Better paste (don't yank replaced text)
+vim.keymap.set('v', 'p', '"_dP', { desc = 'Paste without yanking' })
+
 return {
   require('mini.comment').setup {
     options = {
