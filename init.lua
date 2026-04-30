@@ -499,8 +499,7 @@ require('lazy').setup({
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
 
-      -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
+  
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -776,6 +775,26 @@ require('lazy').setup({
         ts_ls = {},
         zls = {},
         biome = {},
+
+        -- Kotlin (Neovim server name)
+        kotlin_lsp = {
+          cmd = { 'kotlin-lsp' },
+          filetypes = { 'kotlin' },
+          root_markers = {
+            'settings.gradle',
+            'settings.gradle.kts',
+            'build.gradle',
+            'build.gradle.kts',
+            '.git',
+          },
+          offset_encoding = 'utf-16',
+          capabilities = (function()
+            local caps = require('blink.cmp').get_lsp_capabilities()
+            caps.general = caps.general or {}
+            caps.general.positionEncodings = { 'utf-16' }
+            return caps
+          end)(),
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -797,8 +816,14 @@ require('lazy').setup({
         'prettierd',
         'black',
         'google-java-format',
+        'kotlin-lsp', -- or "kotlin-lsp"
+        'ktlint',
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      require('mason-tool-installer').setup {
+        ensure_installed = ensure_installed,
+        auto_update = true,
+      }
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
@@ -880,13 +905,13 @@ require('lazy').setup({
 
   { -- Autocompletion
     'saghen/blink.cmp',
+    branch = 'v1',
     event = 'VimEnter',
-    version = '1.*',
     dependencies = {
       -- Snippet Engine
       {
         'L3MON4D3/LuaSnip',
-        version = '2.*',
+        -- version = '2.*',
         build = (function()
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
@@ -1023,17 +1048,17 @@ require('lazy').setup({
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
+      -- local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      -- statusline.setup { use_icons = vim.g.have_nerd_font }
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      -- statusline.section_location = function()
+      --   return '%2l:%-2v'
+      -- end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
@@ -1042,6 +1067,8 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    lazy = false,
+    branch = 'master',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -1061,6 +1088,7 @@ require('lazy').setup({
         'typescript',
         'zig',
         'java',
+        'kotlin',
         'css',
         'go',
         'jsdoc',
