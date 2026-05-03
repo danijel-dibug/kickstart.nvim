@@ -498,8 +498,6 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
-
-  
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -794,6 +792,10 @@ require('lazy').setup({
             caps.general.positionEncodings = { 'utf-16' }
             return caps
           end)(),
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
         },
       }
 
@@ -867,7 +869,7 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 5000,
             lsp_format = 'fallback',
           }
         end
@@ -889,10 +891,17 @@ require('lazy').setup({
         -- markdown = { 'prettierd', 'prettier', stop_after_first = true },
         python = { 'isort', 'black' },
         java = { 'google-java-format' },
+        kotlin = { 'ktlint' },
+        kts = { 'ktlint' },
       },
       formatters = {
         biome = {
           require_cwd = true, -- biome config file must exist
+        },
+        ktlint = {
+          command = 'sh',
+          args = { '-c', '~/.local/share/nvim/mason/bin/ktlint --log-level=none --format --stdin --stdin-path "$1" 2>/dev/null; exit 0', '_', '$FILENAME' },
+          stdin = true,
         },
       },
       -- formatters = {
@@ -1068,8 +1077,8 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     lazy = false,
-    branch = 'master',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    branch = 'main',
+    -- main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = {
