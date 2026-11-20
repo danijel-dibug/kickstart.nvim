@@ -72,27 +72,6 @@ function M.check()
     health.ok(('%d parsers installed'):format(#parsers))
   end
 
-  health.start 'AI completion'
-  local ok_minuet, minuet = pcall(function()
-    return require('minuet').config
-  end)
-  local provider = ok_minuet and minuet.provider
-  local endpoint = provider and minuet.provider_options and minuet.provider_options[provider] and minuet.provider_options[provider].end_point
-  if not endpoint then
-    health.warn('minuet has no provider endpoint configured', { 'See lua/plugins/ai.lua' })
-  else
-    local res = vim.system({ 'curl', '-s', '-o', '/dev/null', '-m', '3', '-w', '%{http_code}', endpoint }):wait(4000)
-    local code = res and res.stdout or ''
-    if code == '000' or code == '' then
-      health.warn(('cannot reach %s (%s)'):format(endpoint, 'no answer within 3s'), {
-        'Start the inference server, or point lua/plugins/ai.lua at another host',
-        'Ghost text stays off while it does not answer; <A-y> still tries it',
-      })
-    else
-      health.ok(('%s reachable (HTTP %s)'):format(endpoint, code))
-    end
-  end
-
   health.start 'Fonts'
   if vim.g.have_nerd_font then
     health.info 'vim.g.have_nerd_font is set; install a Nerd Font if icons look broken'

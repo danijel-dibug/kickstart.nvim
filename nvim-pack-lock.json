@@ -49,10 +49,6 @@
       "rev": "b8a0af521530f8ee68c738657429eab59de6a2ae",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
-    "minuet-ai.nvim": {
-      "rev": "50bf63b031c0391e926fdf0b3d044d37846e6e34",
-      "src": "https://github.com/milanglacier/minuet-ai.nvim"
-    },
     "nvim-dap": {
       "rev": "cfa2d58f4537aca6ca83e2de1a0d9f1491121264",
       "src": "https://github.com/mfussenegger/nvim-dap"

@@ -34,7 +34,6 @@ lua/plugins/              one file per concern, each declares its own plugins
   format.lua              conform.nvim formatters per filetype
   git.lua                 gitsigns, diffview, lazygit, fugitive
   dap.lua                 nvim-dap, dap-ui, Go and JVM debugging
-  ai.lua                  minuet against a local llama.cpp server
   markdown.lua            render-markdown, quarto + otter
   db.lua                  vim-dadbod and its UI
 
@@ -156,9 +155,6 @@ below. If a plugin is only useful once a month, it does not belong here.
 | `<leader>f` | format buffer (`<leader>f` also works in visual mode) |
 | `F5` `F1` `F2` `F3` `F7` | continue / step in / over / out / debug UI |
 | `<leader>b` / `<leader>B` | breakpoint / conditional breakpoint |
-| `<A-y>` | AI completions in the completion menu |
-| `<A-A>` `<A-a>` `<A-z>` | accept ghost text / to end of line / n lines |
-| `<A-]>` `<A-[>` `<A-e>` | next / previous AI suggestion / dismiss |
 | `<C-/>` | terminal |
 | `<leader>z` / `<leader>Z` | zen mode / zoom window |
 | `<leader>.` / `<leader>S` | scratch buffer / select scratch buffer |
@@ -187,16 +183,11 @@ Other maintenance:
 :lua vim.pack.del { 'name' }            " uninstall
 :lua vim.pack.use { 'name', { load = true } }
 :lua vim.pack.get()                     " what is installed
-:checkhealth myconfig                   " tools, plugins, parsers, AI endpoint
+:checkhealth myconfig                   " tools, plugins, parsers
 ```
 
 ## Notes
 
-- `lua/plugins/ai.lua` points minuet at a local llama.cpp server. Change
-  `end_point` there for another host or model. AI ghost text turns itself on only
-  when that server answers, so a machine that is switched off does not spam
-  errors while you type; `<A-y>` always asks on demand. Set
-  `g:minuet_always_auto_trigger = true` to skip the reachability check.
 - Snippets are native: put your own in `~/.config/nvim/snippets/<ft>/*.snippet.json`
   and blink.cmp picks them up; language servers send their snippets the same way.
 - Java debugging attaches to a JVM on port 5005
