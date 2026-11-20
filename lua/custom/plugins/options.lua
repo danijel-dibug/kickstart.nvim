@@ -1,10 +1,5 @@
 local opt = vim.o
 
------ Interesting Options -----
-
--- You have to turn this one on :)
-opt.inccommand = 'split'
-
 -- Best search settings :)
 opt.smartcase = true
 opt.ignorecase = true
