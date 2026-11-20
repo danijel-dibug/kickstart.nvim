@@ -166,10 +166,37 @@ below. If a plugin is only useful once a month, it does not belong here.
 | `<leader>tm` / `<leader>uc` | toggle markdown rendering / treesitter context |
 | `<leader>db` / `<leader>dq` | database UI |
 
+## Updating plugins
+
+`vim.pack` has no daemon and no background jobs. You ask, it acts, you review:
+
+```vim
+:lua vim.pack.update()                  " fetch, show a diff of what changes
+:w                                    " apply what you reviewed
+:lua vim.pack.update(nil, { offline = true })   " just list, change nothing
+```
+
+Same thing as `<leader>up` (update) and `<leader>uP` (preview only). After
+applying, `:restart`. Version pins come from the `version = '1.*'` style ranges
+in the modules; `:lockinfo` shows what is actually installed and
+`:lua vim.pack.snapshot()` rewrites `nvim-pack-lock.json`.
+
+Other maintenance:
+
+```vim
+:lua vim.pack.del { 'name' }            " uninstall
+:lua vim.pack.use { 'name', { load = true } }
+:lua vim.pack.get()                     " what is installed
+:checkhealth myconfig                   " tools, plugins, parsers, AI endpoint
+```
+
 ## Notes
 
 - `lua/plugins/ai.lua` points minuet at a local llama.cpp server. Change
-  `end_point` there for another host or model.
+  `end_point` there for another host or model. AI ghost text turns itself on only
+  when that server answers, so a machine that is switched off does not spam
+  errors while you type; `<A-y>` always asks on demand. Set
+  `g:minuet_always_auto_trigger = true` to skip the reachability check.
 - Snippets are native: put your own in `~/.config/nvim/snippets/<ft>/*.snippet.json`
   and blink.cmp picks them up; language servers send their snippets the same way.
 - Java debugging attaches to a JVM on port 5005

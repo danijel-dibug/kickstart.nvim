@@ -41,6 +41,16 @@ function M.add(spec)
   vim.pack.add(spec, { load = true, confirm = false })
 end
 
+-- Plugin maintenance shortcuts. vim.pack.update() opens a review buffer of the
+-- incoming changes: `:w` applies them, `:q` discards. Then `:restart`.
+vim.keymap.set('n', '<leader>up', function()
+  vim.pack.update()
+end, { desc = '[U]pdate [P]lugins (review, then :w to apply)' })
+
+vim.keymap.set('n', '<leader>uP', function()
+  vim.pack.update(nil, { offline = true })
+end, { desc = '[U]pdate [P]lugins: preview only, change nothing' })
+
 -- Build hooks, run after a plugin is installed or updated. :help vim.pack-events
 vim.api.nvim_create_autocmd('PackChanged', {
   desc = 'Run build steps for plugins that need them',

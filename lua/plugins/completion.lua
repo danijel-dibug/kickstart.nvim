@@ -4,6 +4,11 @@
 -- default: no snippet plugin is needed. Put your own snippets in
 -- `~/.config/nvim/snippets/<filetype>/*.snippet.json` and blink will pick them
 -- up. LSP servers already send snippets through this. See :help blink-cmp-config-snippets
+--
+-- minuet is deliberately not in `sources.default`: normal typing must not hammer
+-- the local model (slow, plus an error popup whenever that server is off). Ask
+-- for it with <A-y>; minuet's own ghost text handles the automatic case, and it
+-- switches itself on only when the server answers -- lua/plugins/ai.lua.
 local Pack = require 'core.pack'
 
 Pack.add {
@@ -37,12 +42,12 @@ require('blink.cmp').setup {
 
   completion = {
     documentation = { auto_show = true, auto_show_delay_ms = 200 },
-    -- Inline ghost text: LSP completions plus the local FIM model.
+    -- Inline ghost text for LSP completions (AI ghost text is minuet's own).
     ghost_text = { enabled = true },
   },
 
   sources = {
-    default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet' },
+    default = { 'lsp', 'path', 'snippets', 'lazydev' },
     per_filetype = {
       -- SQL completions from the connections vim-dadbod knows about.
       -- Providers themselves are wired up in lua/plugins/db.lua.
@@ -52,6 +57,7 @@ require('blink.cmp').setup {
     },
     providers = {
       lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+      -- Offered only by <A-y>, never during ordinary typing.
       minuet = {
         name = 'minuet',
         module = 'minuet.blink',

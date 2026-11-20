@@ -85,10 +85,13 @@ gitsigns.setup {
 
 -- diffview --------------------------------------------------------------------
 
+-- Valid layout names: diff1_plain, diff2_horizontal, diff2_vertical,
+-- diff3_horizontal, diff3_vertical, diff3_mixed, diff4_mixed.
 require('diffview').setup {
   view = {
-    merge_tool = { layout = 'diff3', disable_diagnostics = true },
-    file_history = { layout = 'diff2' },
+    -- Three-way view during merge conflicts, without diagnostics noise.
+    merge_tool = { layout = 'diff3_mixed', disable_diagnostics = true },
+    file_history = { layout = 'diff2_horizontal' },
   },
 }
 

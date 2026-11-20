@@ -26,5 +26,7 @@ require('lualine').setup {
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
-  extensions = { 'quickfix', 'man', 'notifies' },
+  -- Only names that lualine actually ships; an unknown name makes it complain
+  -- on every startup. See lua/lualine/extensions/.
+  extensions = { 'quickfix', 'man', 'fugitive', 'nvim-dap-ui' },
 }
