@@ -3,5 +3,9 @@ test.sh
 .luarc.json
 nvim
 
+# Your personal spell word lists stay local (this repo is public).
+# Remove this line if you want them version controlled.
 spell/
-lazy-lock.json
+
+# vim.pack writes a log next to the lockfile; the lockfile itself belongs in git
+nvim-pack.log
